@@ -4,7 +4,8 @@
 
 select customer_id 
 from payment
-order by 1
+where customer_id Between 1 AND 5
+
 
 -- we opened our movie rental shop on the 24th of may 2005.
 -- we wanna reward the customers that rented movie within 2 days 
@@ -18,7 +19,7 @@ WHERE rental_date BETWEEN '2005-05-24' AND '2005-05-26'
 
 
 -- please count the numbers of the workers we are to reward and calculate how 
--- much it would cost if we are to pay them $200 each
+-- much it would cost if we are to pay them $200 each. (refer to the previous question)
 
 
 SELECT COUNT(first_name) as OldCustomers, 
@@ -149,6 +150,15 @@ SUM (CASE
 	 END) AS PG_13
 FROM film
 
+-- we want email for our customers that ends in our company domain name
+--  eg JEgbule@juliechan.ag. Please retrive the first letter in every customer's 
+-- first and last name, and add our domain  @juliechan.ag to the end of their names to get a new email for all
 
+select CONCAT(left(first_name,1),left(last_name,1),'@juliechan.ag') as Email
+
+from customer;
+
+
+ 
 
  
