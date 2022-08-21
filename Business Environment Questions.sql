@@ -246,6 +246,14 @@ where first_name like 'P%'
 
 
 
+create view New_date AS ext
+
+select To_Char(payment_date, 'YYYY') as Year, To_Char(payment_date,'Mon')
+as Month, To_Char(payment_date,'dd') as Days, payment_date,
+To_Char(payment_date, 'MONTH/YYYY'), To_Char(payment_date, 'dd/mm/yyyy') as Dates
+from payment
+
+
 
 
 
@@ -272,11 +280,3 @@ where first_name like 'P%'
 
 
 
-
-
-create view New_date AS ext
-
-select To_Char(payment_date, 'YYYY') as Year, To_Char(payment_date,'Mon')
-as Month, To_Char(payment_date,'dd') as Days, payment_date,
-To_Char(payment_date, 'MONTH/YYYY'), To_Char(payment_date, 'dd/mm/yyyy') as Dates
-from payment
