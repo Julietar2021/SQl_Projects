@@ -245,26 +245,87 @@ from actor
 where first_name like 'P%'
 
 
+-- get the customers first and last name on the same column, customer_id,total sum of transaction,average,max, minimum transaction and
+-- count the number of transaction made by each customer. 
+-- Then create a view as customers_transaction in order to save these queries
 
-create view New_date AS ext
-
-select To_Char(payment_date, 'YYYY') as Year, To_Char(payment_date,'Mon')
-as Month, To_Char(payment_date,'dd') as Days, payment_date,
-To_Char(payment_date, 'MONTH/YYYY'), To_Char(payment_date, 'dd/mm/yyyy') as Dates
-from payment
-
-
-
-
-
-
-
-
-
+CREATE VIEW customers_transaction AS
+Select CONCAT(c.first_name,' ',c.last_name) AS fullnames,
+p.customer_id,
+SUM(amount) over (partition by p.customer_id ) AS total_per_id,
+AVG(amount) over (partition by p.customer_id ) AS avg_per_id,
+MAX(amount) over(partition by p.customer_id ) AS highest_per_id,
+MIN(amount) over (partition by p.customer_id) AS lowest_per_id,
+ROW_NUMBER () over (partition by p.customer_id) AS Ranking,
+COUNT(amount) over (partition by p.customer_id) AS Numbers
+FROM customer as c
+INNER JOIN payment as p
+ON c.customer_id = p.customer_id
+ORDER BY 2 
 
 
+-- which customer spent the most 
 
+SELECT fullnames, customer_id, total_per_id
+FROM customers_transaction 
+GROUP BY 1,2,3
+ORDER BY 3 DESC
+LIMIT 1
 
+-- we would like to  reward the customer with the highest number of transactions.
+-- from this view customers_transaction  that was created, get the customer with the highest numbers of transaction.
+
+SELECT MAX(Numbers),fullnames, customer_id
+FROM customers_transaction
+Group by 2,3
+order by 1 desc
+limit 1
+
+-- lowest number of transaction made is by which customer
+
+SELECT MIN(Numbers),fullnames, customer_id
+FROM customers_transaction
+Group by 2,3
+order by 1 
+limit 1
+
+-- which customer spent the least 
+
+SELECT fullnames, customer_id, total_per_id
+FROM customers_transaction 
+GROUP BY 1,2,3
+ORDER BY 3 
+LIMIT 1
+
+-- we also loved to reward the customers that have spent the most. Please help retrieve the names of ou top 5 highest spender from the view queries
+
+SELECT fullnames, customer_id, total_per_id
+FROM customers_transaction
+Group by 1,2,3
+ORDER BY 3 DESC
+LIMIT 5
+
+-- now let us reward customers with over >=200 total transaction with 1000usd, >=150 get 500usd
+
+SELECT fullnames, customer_id, total_per_id,
+CASE
+WHEN  total_per_id >= 200 THEN 1000
+WHEN  total_per_id >= 150 THEN 500
+ELSE 0
+END AS Customer_Reward
+FROM customers_transaction 
+GROUP BY 1,2,3
+ORDER BY 3 DESC 
+LIMIT 5
+
+-- to encourage our top 10 lowest spenders, let us give them the sum of 200 usd each
+
+SELECT fullnames, customer_id, total_per_id,
+(200) as Encourage_reward
+FROM customers_transaction 
+GROUP BY 1,2,3
+ORDER BY 3 
+LIMIT 10
 
 
 
