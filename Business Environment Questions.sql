@@ -327,13 +327,39 @@ GROUP BY 1,2,3
 ORDER BY 3 
 LIMIT 10
 
+-- find the lowest amount spent by each customer
+
+SELECT customer_id, MIN(amount)
+FROM payment
+GROUP BY 1
+
+-- find the highest amount spent by each customer
+SELECT customer_id, MAX(amount)
+FROM payment
+GROUP BY 1
+
+-- find the unique customer id
+
+SELECT DISTINCT customer_id
+FROM payment
 
 
-
-
+-- please retrive the customers that have made from 30 and above transactions
+select customer_id, count(customer_id) as no_of_tran
+from payment
+group by 1
+having count(customer_id) >= 30
 	
 
+-- select all customer id with even number
+SELECT *
+FROM payment
+WHERE customer_id % 2 = 2
 
+-- select all customer id with odd number
+SELECT *
+FROM payment
+WHERE customer_id % 2 = 1
 
 
 
