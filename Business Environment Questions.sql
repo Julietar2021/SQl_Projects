@@ -361,7 +361,15 @@ SELECT *
 FROM payment
 WHERE customer_id % 2 = 1
 
+-- how many transaction were made on monday
+SELECT COUNT(*) FROM payment
+WHERE EXTRACT(DOW FROM payment_date) = 1
 
+
+-- we would like to know if business is booming on sunday.please calculate the total transaction that was made on sunday
+
+SELECT sum(amount) FROM payment
+WHERE EXTRACT(DOW FROM payment_date) = 0
 
 
 
