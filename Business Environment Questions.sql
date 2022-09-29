@@ -1,11 +1,12 @@
+-- please create email address for all our customers by  taking their first and last name. Note all must be in small letter. eg( juliet.egbule@juliechan.com)
+SELECT CONCAT(lower(first_name),'.',lower(last_name),'@juliechan.com') AS Email
+FROM customer;
 
 -- A customer forgot his wallet at our store! We need to track down his email to inform --- her. What is the email of Nancy?
-
-
 select first_name, last_name,email
 from customer
 where first_name = 'Nancy' 
-AND last_name = 'Thomas'
+AND last_name = 'Thomas';
 
 
 -- what customer has the highest customer ID whose name starts with an 'E' and has an address id lower than 500?
