@@ -154,9 +154,9 @@ FROM film
 --  eg JEgbule@juliechan.ag. Please retrive the first letter in every customer's 
 -- first and last name, and add our domain  @juliechan.ag to the end of their names to get a new email for all
 
-select CONCAT(left(first_name,1),left(last_name,1),'@juliechan.ag') as Email
+SELECT CONCAT(left(first_name,1),last_name,'@juliechan.ag') as Email
 
-from customer;
+FROM customer;
 
 
  
