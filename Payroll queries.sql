@@ -1,3 +1,7 @@
+-- please rename the table from workers to employees
+ALTER TABLE workers
+RENAME TO employees
+
 -- find the highest salary earner 
 SELECT * FROM employees
 ORDER BY Salary Desc
@@ -18,27 +22,19 @@ SELECT COUNT(*)
 FROM employees
 WHERE State = 'Bauchi'
 
+-- count numbers of employees in every state
 SELECT State, COUNT(State)
 FROM employees
 group by 1
 
--- count the numbers of every employees in each state
-
-SELECT State, COUNT(State)
-FROM employees
-group by 1
-
--- which state has workers shortage 
-
+-- which state highest workers shortage 
 SELECT State, COUNT(State)
 FROM employees
 GROUP BY 1
 ORDER BY 2
 limit 1
 
-
 -- when was the last hiring d
-
 SELECT MAX(HireDate)
 FROM employees
 
@@ -51,16 +47,20 @@ GROUP BY 1
 SELECT Department, (Salary + Bonus) AS TotalIncome
 FROM employees
 
--- calculate the bonus percentage
-
-SELECT as BonusPercentage
+-- calculate the total bonus percentage
+SELECT SUM(Bonus)/SUM(Salary) AS BonusPercentage
 FROM employees
 
 -- get the list of all employees that earns above 5million
-
 SELECT * 
 FROM employees
 WHERE Salary > 5000000
+
+-- get all employees that earn more than total average salary
+SELECT *
+FROM employee
+WHERE Salary > (SELECT AVG(Salary) FROM employees)
+
 
 -- how many employees in Lagos state earn more than 5million
 SELECT COUNT(*) 
