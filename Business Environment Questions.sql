@@ -257,7 +257,6 @@ SUM(amount) over (partition by p.customer_id ) AS total_per_id,
 AVG(amount) over (partition by p.customer_id ) AS avg_per_id,
 MAX(amount) over(partition by p.customer_id ) AS highest_per_id,
 MIN(amount) over (partition by p.customer_id) AS lowest_per_id,
-ROW_NUMBER () over (partition by p.customer_id) AS Ranking,
 COUNT(amount) over (partition by p.customer_id) AS Numbers
 FROM customer as c
 INNER JOIN payment as p
