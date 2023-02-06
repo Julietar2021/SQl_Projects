@@ -10,21 +10,6 @@ AND last_name = 'Thomas';
 
 
 
--- select the movie that the rental rate is higher than the average 
--- rental rate for all the films
-
-Select avg(rental_rate) from film
-select title,rental_rate from film
-where rental_rate > 2.980000000
-
-or 
-
-select title, rental_rate from film
-where rental_rate >
-(select avg(rental_rate)
-
-from film)
-
 
 -- A customer wants to know what the movie Outlaw Hanky is all about. Could you show them the description of the movie?
 
@@ -360,6 +345,21 @@ SELECT sum(amount) FROM payment
 WHERE EXTRACT(DOW FROM payment_date) = 0
 
 
+
+-- select the movie that the rental rate is higher than the average 
+-- rental rate for all the films
+
+Select avg(rental_rate) from film
+select title,rental_rate from film
+where rental_rate > 2.980000000
+
+or 
+
+select title, rental_rate from film
+where rental_rate >
+(select avg(rental_rate)
+
+from film)
 
 
 
