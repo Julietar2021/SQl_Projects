@@ -2,23 +2,11 @@
 SELECT CONCAT(lower(first_name),'.',lower(last_name),'@juliechan.com') AS Email
 FROM customer;
 
--- A customer forgot his wallet at our store! We need to track down his email to inform --- her. What is the email of Nancy?
+-- A customer forgot his wallet at our store! We need to track down his email to inform --- her. What is the email of gift?
 select first_name, last_name,email
 from customer
 where first_name = 'Nancy' 
 AND last_name = 'Thomas';
-
-
--- what customer has the highest customer ID whose name starts with an 'E' and has an address id lower than 500?
-
-select first_name,last_name,address_id
-from customer
-where address_id < 500
-AND first_name like 'E%'
-group by  first_name,last_name,address_id
-order by 3 desc
-limit 1
-
 
 
 
@@ -372,6 +360,18 @@ SELECT sum(amount) FROM payment
 WHERE EXTRACT(DOW FROM payment_date) = 0
 
 
+
+
+
+-- what customer has the highest customer ID whose name starts with an 'E' and has an address id lower than 500?
+
+select first_name,last_name,address_id
+from customer
+where address_id < 500
+AND first_name like 'E%'
+group by  first_name,last_name,address_id
+order by 3 desc
+limit 1
 
 
 
