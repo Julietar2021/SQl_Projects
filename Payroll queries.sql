@@ -114,12 +114,12 @@ GROUP BY 1
 
 
 
- -- How many countries 
+ -- How many countries do our workers come from?
  SELECT COUNT(DISTINCT Nationality) FROM employees
 
 -- list all the the unique countries 
 
-SELECT Nationality, COUNT(Nationality)
+SELECT Nationality,  DISTINCT(Nationality)
  FROM employees
  GROUP BY 1
 
