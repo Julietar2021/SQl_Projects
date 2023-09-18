@@ -128,6 +128,50 @@
 SELECT * FROM pg_stat_activity
 WHERE datname = 'dvdrenta'
 
+	
+Juliet Egbule
+Attachments
+4:16 PM (2 hours ago)
+to me
+
+-- create a store procedure to update cd.workers table
+
+CREATE PROCEDURE update_data(integer, varchar(200), TIMESTAMP)
+LANGUAGE'plpgsql'
+AS $$
+BEGIN
+INSERT INTO cd.workers values($1,$2,$3);
+COMMIT;
+END
+$$;
+
+CALL update_data(6,'Gifto Samson',CURRENT_DATE)
+
+-- retrive all data for confirmation
+SELECT * FROM cd.workers;
+
+-- add new column as company name and set juliechan as the default company name
+ALTER TABLE cd.workers
+ADD CompanyName VARCHAR(200) DEFAULT 'JulieChan'
+
+-- update the update_data procedure in order to add the new column.
+CREATE OR REPLACE PROCEDURE insert_data(integer, varchar(200), timestamp, varchar(200))
+LANGUAGE'plpgsql'
+AS $$
+BEGIN
+INSERT INTO cd.workers values($1,$2,$3,$4);
+COMMIT;
+END
+$$;
+
+-- add new employee details to the cd.worker tables
+
+CALL update_data (6,'Jobe Ben',current_date)
+
+-- retrive all data for confirmation
+SELECT * FROM cd.workers;
+
+
 -- kill a database pid to be able to drop a database
 SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
