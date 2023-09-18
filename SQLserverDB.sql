@@ -55,3 +55,8 @@ KILL 66
 
 DROP LOGIN jegbule
 
+-- terminate a database
+
+execute sp_who2;
+-- kills database spid
+Kill 60
