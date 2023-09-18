@@ -176,3 +176,21 @@ SELECT * FROM cd.workers;
 SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
 WHERE pid IN  (12648 , 21324)
+
+
+-- view list of roles in the database
+select * from pg_roles
+
+-- view list of users that has access to the server
+select * from pg_user
+where rolname = 'demouser'
+
+-- check demousers roles
+select * from information_schema.role_table_grants where grantee = 'demouser'
+
+select grantee as Users, grantor AS Assignee, table_schema as schema,
+table_catalog as table_name, privilege_type, is_grantable as roles_granted
+from information_schema.role_table_grants where grantee = 'demouser'
+
+
+
