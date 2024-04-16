@@ -158,7 +158,18 @@ SELECT CONCAT(left(first_name,1),last_name,'@juliechan.ag') as Email
 
 FROM customer;
 
+-- retrieve the top ten customers with the highest payment made from the dictrict of California
 
+select email as CustomerEmails,district as cities, sum(amount)  as totalPayment≈
+from address as a
+join customer as c
+on a.address_id = c.address_id
+join payment as p
+on c.customer_id = p.customer_id
+where district = 'California'
+group by c.email, a.district
+order by sum(amount) desc
+limit 10
  
 
  
